@@ -73,14 +73,12 @@ const products = [
   },
 ];
 
-
-let cardCount = 0; 
-let totalCard = 0; 
+let cartCount = 0;
+let totalCartAmount = 0;
 
 function addNewCard() {
-  
   for (let item of products) {
-    const newCard = document.createElement('div'); 
+    const newCard = document.createElement("div");
 
     newCard.innerHTML = `
     <div class="card card-compact h-full text-black w-96 bg-[#FFFFF0] shadow-xl">
@@ -94,15 +92,26 @@ function addNewCard() {
         <h2 class="card-title">${item.name}</h2>
         <p>Price: ${item.details.price} $</p>
         <div class="card-actions justify-center">
-          <button class="btn bg-[#bbe436] text-gray-700 border border-gray-50">Add to Cart</button>
+          <button onclick='addToCart("${item.name}",${item.details.price})' class="bg-[#bbe436] px-4 py-2 rounded-md font-bold text-gray-700 border border-gray-50">Add to Cart</button>
         </div>
       </div>
     </div>
-    `; 
-    document.getElementById("products").append(newCard); 
+    `;
+    document.getElementById("products").append(newCard);
   }
- 
 }
 
-addNewCard(); 
+function addToCart(name, price) {
+  cartCount++;
+  totalCartAmount += price;
 
+  const cartCountContainer = document.getElementById("cart-count");
+  const totalCartCountContainer = document.getElementById("cart-total-item");
+  const totalCartAmountContainer = document.getElementById("total-amount");
+
+  cartCountContainer.innerHTML = cartCount;
+  totalCartCountContainer.innerHTML = cartCount;
+  totalCartAmountContainer.innerHTML = totalCartAmount;
+}
+
+addNewCard();
